@@ -602,7 +602,7 @@ def create_groupr_input(deck, dat, tapeENDFIn, tapePENDFIn, tapeGroupsIn, tapeGE
     #
     deck.append(['groupr'])
     deck.append((tapeENDFIn, tapePENDFIn, tapeGroupsIn, tapeGENDFOut))
-    deck.append((dat.mat, dat.groupOpt, 0, dat.weightOpt, dat.legendreOrder, len(dat.thermList), len(dat.sig0List), 0, '/'))
+    deck.append((dat.mat, dat.groupOpt, 0, dat.weightOpt[0], dat.legendreOrder, len(dat.thermList), len(dat.sig0List), 0, '/'))
     deck.append((dat.nuclideName,'/'))
     deck.append(dat.thermList)
     deck.append(dat.sig0List)
@@ -625,8 +625,22 @@ def create_groupr_input(deck, dat, tapeENDFIn, tapePENDFIn, tapeGroupsIn, tapeGE
         groupFormat.append('/')
         if rowPos != 1:
             deck.append(groupFormat)
-    if (dat.weightOpt == 4):
-        deck.append([0.4, 0.0255, 2.0e7, 8.2030E+05])
+    if (dat.weightOpt[0] == 4):
+        # thermal break, thermal temperature, fission break, fission temperature 
+        # reactor problem
+        #deck.append(('1.77828 .0253 31622.8 1.4e6','/'))
+        # fast spectrum problem
+        #deck.append(('.1265 .0253 .1265 1.4e6','/'))
+        thermal_upper_limit = np.float(dat.weightOpt[1])
+        thermal_avg_eV      = np.float(dat.weightOpt[2])
+        fast_lower_limit    = np.float(dat.weightOpt[3])
+        fission_avg_eV      = np.float(dat.weightOpt[4])
+        print "weightOpt = 4"
+        print "  thermal_upper_limit = ", thermal_upper_limit
+        print "  thermal_avg_eV      = ",thermal_avg_eV 
+        print "  fast_lower_limit    = ",fast_lower_limit
+        print "  fission_avg_eV      = ",fission_avg_eV
+        deck.append(('%.8f %.8f %.8f %.8e' %(thermal_upper_limit, thermal_avg_eV, fast_lower_limit, fission_avg_eV),'/'))
     for rxt in namedRxts:
         deck.append(rxt)
     deck.append((0, '/'))
@@ -843,7 +857,7 @@ class NJOYDat():
         self.groupOpt = groupOpt
         # iwt: weighting spectrum (see manual)
         # use iwt = 4 for CERT
-        self.weightOpt = 5
+        self.weightOpt = [5]
         # How many Legendre orders of transfer matrices to output; n in Pn
         self.legendreOrder = legendreOrder
         #

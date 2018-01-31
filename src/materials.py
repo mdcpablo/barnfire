@@ -72,6 +72,7 @@ def define_input_parser():
     njoyGroup.add_argument('-L', '--legendreorder', help='Legendre order to use for the scattering kernel.', type=int, default=0)
     njoyGroup.add_argument('-S', '--smallscattering', help='Do not build transfer matrices when running GROUPR if specified.', action='store_true', default=False)
     njoyGroup.add_argument('-P', '--purroff', help='Do not use probability table treatment in the unresolved resonance range for the ACE files', action='store_true', default=False)
+    njoyGroup.add_argument('-W', '--weightopt', help="Specify group option for NJOY. Default is option 2.", nargs='+', default=[2])
     # Bondarenko options
     bondarenkoGroup = parser.add_argument_group('Bondarenko options', 'Options to use with --bondarenko.')
     bondarenkoGroup.add_argument('-N', '--numberiterationsmax', help='Maximum number of Bondarenko iterations. If a value less than 0 is used, unshielded (infinite) background cross sections are used.', type=int, default=10)

@@ -43,6 +43,7 @@ def create_njoy_decks(inputDict, globalZASabList, njoyTDict, njoyBXSDict, global
     et2matDict = util.get_element_thermal_name_to_mat_number_dict()
     et2inelmtDict = util.get_element_thermal_name_to_inelastic_mt_number_dict()
     njoyGroupOpt = get_njoy_group_opt(groupOpt)
+    njoyWeightOpt = weightOpt
     tapes = njoy.NJOYTape()
     if verbosity:
         print '------- Creating NJOY decks -------'
@@ -60,7 +61,7 @@ def create_njoy_decks(inputDict, globalZASabList, njoyTDict, njoyBXSDict, global
             metastableStr = ''
         Atrue = A % 400
         dat = njoy.NJOYDat(A=Atrue, Z=Z, endfName=endfName, groupBdrs=groupBdrs, groupOpt=njoyGroupOpt,
-            legendreOrder=legendreOrder)
+            weightOpt=njoyWeightOpt, legendreOrder=legendreOrder)
         dat.sig0List = sorted(njoyBXSDict[(Z,A,Sab)], reverse=True)
         dat.thermList = sorted(njoyTDict[(Z,A,Sab)])
         dat.mat = nd.mats[(Z, Atrue, isExcitedState)]
