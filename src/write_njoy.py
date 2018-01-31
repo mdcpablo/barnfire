@@ -209,6 +209,7 @@ def create_njoy_script(dat, tapes):
     create_matxsr_input(deck, dat, tapes.gendfOut, tapes.gaminrOut, tapes.matxsOut)
     # It seems MODER is not needed after MATXSR
     #  create_moder_input(deck, dat, tapes.matxsOut, tapes.gendfOut)
+    create_errorr_input(deck, dat, tapes.bendf, pendfOutTape, tapes.grouprIn, tapes.errorrOut)
     if False and dat.numGroups <= 200:
         doPlotr = True
         plotNames = create_plotr_inputs(deck, dat, tapes.gendfOut, tapes.plotrOut, tapes.viewrOut)
@@ -626,11 +627,6 @@ def create_groupr_input(deck, dat, tapeENDFIn, tapePENDFIn, tapeGroupsIn, tapeGE
         if rowPos != 1:
             deck.append(groupFormat)
     if (dat.weightOpt[0] == 4):
-        # thermal break, thermal temperature, fission break, fission temperature 
-        # reactor problem
-        #deck.append(('1.77828 .0253 31622.8 1.4e6','/'))
-        # fast spectrum problem
-        #deck.append(('.1265 .0253 .1265 1.4e6','/'))
         thermal_upper_limit = np.float(dat.weightOpt[1])
         thermal_avg_eV      = np.float(dat.weightOpt[2])
         fast_lower_limit    = np.float(dat.weightOpt[3])
@@ -667,6 +663,43 @@ def create_matxsr_input(deck, dat, tapeGENDFIn, tapeGAMINRIn, tapeMATXSOut):
     deck.append((1, 1))
     deck.append((1, 1))
     deck.append(("'" + dat.nuclideName + "'", dat.mat, dat.mat))
+
+def create_errorr_input(deck, dat, tapeENDFIn, tapePENDFIn, tapeGroupsIn, tapeERRORROut):
+    deck.append(['errorr'])
+    deck.append((tapeENDFIn, tapePENDFIn, tapeGroupsIn, tapeERRORROut, 0, '/'))
+    deck.append((dat.mat, dat.groupOpt, dat.weightOpt[0], 1, 0))
+    thermlist = [0]+dat.thermList+['/']
+    deck.append(thermlist)
+    deck.append((0, 33, 1, 1, -1, '/'))
+
+    if dat.groupOpt == 1:
+        deck.append((dat.numGroups,'/'))
+        groupFormat = []
+        rowSize = 4
+        rowPos = 1
+        for group in dat.groupBdrs:
+            # Single precision uses 23 bits in the mantissa (and one implicit bit).
+            # Since it is base-2, this ~ log10(2**(23+1)) = 7.22 total decimals may be
+            # specified. This translates into ~ 6 digits after the '.' in scientific notation.
+            groupFormat.append("{0:.12e}".format(group))
+            if rowPos >= rowSize:
+                deck.append(groupFormat)
+                groupFormat = []
+                rowPos = 1
+            else:
+                rowPos += 1
+        groupFormat.append('/')
+        if rowPos != 1:
+            deck.append(groupFormat)
+
+    if int(dat.weightOpt[0]) == 4:
+        thermal_upper_limit = np.float(dat.weightOpt[1])
+        thermal_avg_eV      = np.float(dat.weightOpt[2])
+        fast_lower_limit    = np.float(dat.weightOpt[3])
+        fission_avg_eV      = np.float(dat.weightOpt[4])
+        deck.append(('%.8f %.8f %.8f %.8e' %(thermal_upper_limit, thermal_avg_eV, fast_lower_limit, fission_avg_eV),'/'))
+
+    #out.write( '%s %i %i 1 %i \n' %(str(mat[isotope_iter]), group_struct, weight_funct, cov_format) ) 
     
 
 ###############################################################################
@@ -739,6 +772,7 @@ class NJOYTape():
         self.grouprIn = 0
         self.grouprOut = -28
         self.gendfOut = 29
+        self.errorrOut = 99
         self.pendfOutASCII = 30
         self.plotrOut = [31, 33, 35, 37]
         self.viewrOut = [32, 34, 36, 38]
