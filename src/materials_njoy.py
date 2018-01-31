@@ -28,6 +28,7 @@ def create_njoy_decks(inputDict, globalZASabList, njoyTDict, njoyBXSDict, global
     endfLib = 'vii1'
     legendreOrder = inputDict['legendreorder']
     groupOpt = inputDict['groupopt']
+    weightOpt = inputDict['weightopt']
     ignoreTransferMatrices = inputDict['smallscattering']
     usePURR = not(inputDict['purroff'])
     #
@@ -372,6 +373,8 @@ def get_allowed_njoy_temperatures():
         'fe': Tstructural,
         }
     return allowedTDict
+
+    
 
 
 
