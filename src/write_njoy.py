@@ -857,7 +857,8 @@ class NJOYDat():
         self.groupOpt = groupOpt
         # iwt: weighting spectrum (see manual)
         # use iwt = 4 for CERT
-        self.weightOpt = [5]
+        self.weightOpt = weightOpt
+        print weightOpt
         # How many Legendre orders of transfer matrices to output; n in Pn
         self.legendreOrder = legendreOrder
         #
