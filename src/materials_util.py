@@ -53,13 +53,22 @@ def thin_list(inList, useLinSpacing=True):
     return sortedList[index]
 
 ###############################################################################
-def calc_chord_length(fuelRadius):
-    if fuelRadius == 'unshielded':
-        return 1.e10
-    elif fuelRadius:
-        surfaceArea = 2 * np.pi * fuelRadius
-        volume = np.pi * fuelRadius * fuelRadius
-        chordLength = surfaceArea / (4 * volume)
+def calc_chord_length(geometry, fuelRadius):
+    if geometry == "cube":
+        fuelSideLength = fuelRadius
+        surfaceArea = 6. * fuelSideLength ** 2
+        volume = fuelSideLength ** 3
+        chordLength = surfaceArea / (4. * volume)
+        return chordLength
+    elif geometry == "cylinder":
+        surfaceArea = 2. * np.pi * fuelRadius
+        volume = np.pi * fuelRadius ** 2
+        chordLength = surfaceArea / (4. * volume)
+        return chordLength
+    elif geometry == "sphere":
+        surfaceArea = 4. * np.pi * fuelRadius ** 2
+        volume = 4. / 3. * np.pi * fuelRadius ** 3
+        chordLength = surfaceArea / (4. * volume)
         return chordLength
     else:
         return 0.0

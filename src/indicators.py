@@ -126,7 +126,7 @@ def do_all(inputDict):
         if workOpt == 'wgt':
             materials.append(mat.get_cold_h2o_material())
         if materialOpt == '5':
-            chordLength = calc_chord_length(0.597)
+            chordLength = calc_chord_length("cylinder", 0.597)
             materials[1].update_chord_length(chordLength)
     if materialOpt == 'graphite':
         materials.append(mat.get_graphite_material())

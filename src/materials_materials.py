@@ -170,7 +170,7 @@ def get_CASL_fuel_material():
     uAtomFractionsDict = {234:6.11864E-06, 235:7.18132E-04, 236:03.29861E-06, 238:2.21546E-02}
     elemAtomFracDict = {'O':4.57642E-02, 'U':2.28821E-02}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -193,7 +193,7 @@ def get_CASL_fuel_material_900K():
     uAtomFractionsDict = {234:6.11864E-06, 235:7.18132E-04, 236:03.29861E-06, 238:2.21546E-02}
     elemAtomFracDict = {'O':4.57642E-02, 'U':2.28821E-02}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -216,7 +216,7 @@ def get_CASL_fuel_material_1200K():
     uAtomFractionsDict = {234:6.11864E-06, 235:7.18132E-04, 236:03.29861E-06, 238:2.21546E-02}
     elemAtomFracDict = {'O':4.57642E-02, 'U':2.28821E-02}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -238,7 +238,7 @@ def get_CASL_gas_material():
     thermalOpt = 'free'
     elemAtomFracDict = {'He':1.0}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -268,7 +268,7 @@ def get_CASL_cladding_material():
                            179:3.01460E-07, 180:7.76449E-07}
     elemAtomFracDict = {'Cr':7.59773E-05, 'Fe':1.48556E-04, 'Zr':4.25394E-02, 'Sn':4.82542E-04, 'Hf':2.21337E-06}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, crAtomFractionsDict, 'Cr')
@@ -295,7 +295,7 @@ def get_CASL_moderator_material():
     bAtomFractionsDict = {10:1.07070E-05, 11:4.30971E-05}
     elemAtomFracDict = {'H':4.96224E-02, 'O':2.48112E-02, 'B':5.38041E-05}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, bAtomFractionsDict, 'B')
@@ -318,7 +318,7 @@ def get_CASL_moderator2E_material():
     bAtomFractionsDict = {10:1.07070E-05, 11:4.30971E-05}
     elemAtomFracDict = {'H':4.96224E-02, 'O':2.48112E-02, 'B':5.38041E-05}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, bAtomFractionsDict, 'B')
@@ -341,7 +341,7 @@ def get_CASL_moderator1B_material():
     bAtomFractionsDict = {10:9.52537E-06, 11:3.83408E-05}
     elemAtomFracDict = {'H':4.41459E-02, 'O':2.20729E-02, 'B':4.786617E-05}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, bAtomFractionsDict, 'B')
@@ -367,7 +367,7 @@ def get_CASL_StainlessSteel_material():
     niAtomFractionsDict = {58:5.30854E-03, 60:2.04484E-03, 61:8.88879E-05, 62:2.83413E-04, 64:7.21770E-05}
     elemAtomFracDict = {'C':3.20895E-04, 'Si':1.71537E-03, 'P':6.99938E-05, 'Cr':1.76045E-02, 'Mn':1.75387E-03, 'Fe':5.89865E-02, 'Ni':7.79786E-03}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances_as_elemental(ZAList, abundanceDict,  'C')
@@ -395,7 +395,7 @@ def get_CASL_pyrex_material():
     siAtomFractionsDict = {28:1.81980E-02, 29:9.24474E-04, 30:6.10133E-04}
     elemAtomFracDict = {'B':4.86499E-03, 'O':4.67761E-02, 'Si':1.97326E-02}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, bAtomFractionsDict, 'B')
@@ -419,7 +419,7 @@ def get_CASL_B4C_material():
     bAtomFractionsDict = {10:1.52689E-02, 11:6.14591E-02}
     elemAtomFracDict = {'B':7.67280E-02, 'C':1.91820E-02}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, bAtomFractionsDict, 'B')
@@ -445,7 +445,7 @@ def get_CASL_AIC_material():
     inAtomFractionsDict = {113:3.44262E-04, 115:7.68050E-03}
     elemAtomFracDict = {'Ag':2.19403E-02, 'Cd':2.631098E-04, 'In':8.024762E-03}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, agAtomFractionsDict, 'Ag')
@@ -471,7 +471,7 @@ def get_CASL_fuel_p4_211_material():
     uAtomFractionsDict = {234:4.04814E-06, 235:4.88801E-04, 236:2.23756E-06, 238:2.23844E-02}
     elemAtomFracDict = {'O':4.57591E-02, 'U':2.28794867E-02}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -494,7 +494,7 @@ def get_CASL_fuel_p4_262_material():
     uAtomFractionsDict = {234:5.09503E-06, 235:6.06733E-04, 236:2.76809E-06, 238:2.22663E-02}
     elemAtomFracDict = {'O':4.57617E-02, 'U':2.28808961E-02}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -517,7 +517,7 @@ def get_CASL_moderator_p4_material():
     bAtomFractionsDict = {10:1.12012E-05, 11:4.50862E-05}
     elemAtomFracDict = {'H':4.96194E-02, 'O':2.48097E-02, 'B':5.62874E-05}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, bAtomFractionsDict, 'B')
@@ -545,7 +545,7 @@ def get_CASL_topnozzle_material():
     niAtomFractionsDict = {58:1.01650E-03, 60:3.91552E-04, 61:1.70205E-05, 62:5.42688E-05, 64:1.38207E-05}
     elemAtomFracDict = {'H':4.01187E-02, 'B':4.5498E-05, 'C':6.14459E-05, 'O':2.00593E-02, 'Si':3.28465E-04, 'P':1.34026E-05, 'Cr':3.3709562E-03, 'Mn':3.35836E-04, 'Fe':1.12949E-02, 'Ni':1.47934E-03}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, hAtomFractionsDict, 'H')
@@ -579,7 +579,7 @@ def get_CASL_bottomnozzle_material():
     niAtomFractionsDict = {58:1.48226E-03, 60:5.70964E-04, 61:2.48194E-05, 62:7.91351E-05, 64:2.01534E-05}
     elemAtomFracDict = {'H':4.01187E-02, 'B':4.05704E-05, 'C':8.96008E-05, 'O':1.78819E-02, 'Si':4.78969E-04, 'P':1.95438E-05, 'Cr':4.91555E-03, 'Mn':4.89719E-04, 'Fe':1.64703E-02, 'Ni':2.17733E-03}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, hAtomFractionsDict, 'H')
@@ -613,7 +613,7 @@ def get_CASL_coreplates_material():
     niAtomFractionsDict = {58:2.65427E-03, 60:1.02242E-03, 61:4.44439E-05, 62:1.41707E-04, 64:3.60885E-05}
     elemAtomFracDict = {'H':2.48098E-02, 'B':2.82470E-05, 'C':1.60447E-04, 'O':1.24049E-02, 'Si':8.57687E-04, 'P':3.49969E-05, 'Cr':7.96595E-03, 'Mn':8.76936E-04, 'Fe':2.87852E-02, 'Ni':3.85449E-03}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, hAtomFractionsDict, 'H')
@@ -642,7 +642,7 @@ def get_CASL_fuel_p5_31_material():
     uAtomFractionsDict = {234:6.11864E-06, 235:7.18132E-04, 236:03.29861E-06, 238:2.21546E-02}
     elemAtomFracDict = {'O':4.57642E-02, 'U':2.28821E-02}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -665,7 +665,7 @@ def get_CASL_moderator_p5_material():
     bAtomFractionsDict = {10:1.06329E-05, 11:4.27988E-05}
     elemAtomFracDict = {'H':4.96228E-02, 'O':2.48114E-02, 'B':5.34317E-05}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, bAtomFractionsDict, 'B')
@@ -689,7 +689,7 @@ def get_CASL_pyrex_p5_material():
     siAtomFractionsDict = {28:1.81641E-02, 29:9.22749E-04, 30:6.08994E-04}
     elemAtomFracDict = {'B':4.85591E-03, 'O':4.66888E-02, 'Si':1.96958E-02}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, bAtomFractionsDict, 'B')
@@ -716,7 +716,7 @@ def get_CASL_StainlessSteel_p5_material():
     niAtomFractionsDict = {58:5.30854E-03, 60:2.04484E-03, 61:8.88879E-05, 62:2.83413E-04, 64:7.21770E-05}
     elemAtomFracDict = {'C':3.20895E-04, 'Si':1.71537E-03, 'P':6.99938E-05, 'Cr':1.76045E-02, 'Mn':1.75387E-03, 'Fe':5.89865E-02, 'Ni':7.79786E-03}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances_as_elemental(ZAList, abundanceDict,  'C')
@@ -743,7 +743,7 @@ def get_CASL_B4C_p5_material():
     bAtomFractionsDict = {10:1.52689E-02, 11:6.14591E-02}
     elemAtomFracDict = {'B':7.67280E-02, 'C':1.91820E-02}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, bAtomFractionsDict, 'B')
@@ -769,7 +769,7 @@ def get_CASL_AIC_p5_material():
     inAtomFractionsDict = {113:3.44262E-04, 115:7.68050E-03}
     elemAtomFracDict = {'Ag':2.19403E-02, 'Cd':2.631098E-04, 'In':8.024762E-03}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, agAtomFractionsDict, 'Ag')
@@ -794,7 +794,7 @@ def get_CASL_gas_p5_material():
     thermalOpt = 'free'
     elemAtomFracDict = {'He':1.0}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -824,7 +824,7 @@ def get_CASL_cladding_p5_material():
                            179:3.01460E-07, 180:7.76449E-07}
     elemAtomFracDict = {'Cr':7.59773E-05, 'Fe':1.48556E-04, 'Zr':4.25394E-02, 'Sn':4.82542E-04, 'Hf':2.21337E-06}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, crAtomFractionsDict, 'Cr')
@@ -853,7 +853,7 @@ def get_410Design_material():
     puAtomFractionsDict = {239:1.0}
     elemAtomFracDict = {'O':4.57642E-02, 'H': 9.15E-02, 'U':2.28821E-02, 'Np': 2.2E-04, 'Pu': 2.2E-03}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -883,7 +883,7 @@ def get_cert_material():
     amAtomFractionsDict = {241:1.0}
     elemAtomFracDict = {'H':4.0, 'C':1.0, 'O':1.0, 'N':1.0, 'B':1.0, 'Ar':1.0, 'Al':1.0, 'Fe': 1.0, 'F':1.0, 'Am':1.0, 'Be':1.0, 'Cr':1.0, 'Ni':1.0, 'Mn':1.0}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, hAtomFractionsDict, 'H')
@@ -912,7 +912,7 @@ def get_cert_Hpoly_Cfree():
     hAtomFractionsDict = {1:1.0}
     elemAtomFracDict = {'H':4.0, 'C':1.0}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, hAtomFractionsDict, 'H')
@@ -936,7 +936,7 @@ def get_cert_Hh2o():
     hAtomFractionsDict = {1:1.0}
     elemAtomFracDict = {'H':4.0}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, hAtomFractionsDict, 'H')
@@ -959,7 +959,7 @@ def get_hpu_slurry_material():
     puAtomFractionsDict = {239: 1.0}
     elemAtomFracDict = {'Pu': 0.07, 'H': 1.0}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, puAtomFractionsDict, 'Pu')
@@ -982,7 +982,7 @@ def get_hheu_slurry_material():
     uAtomFractionsDict = {235: 1.0}
     elemAtomFracDict = {'U': 0.07, 'H': 1.0}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -1005,7 +1005,7 @@ def get_hleu_slurry_material():
     uAtomFractionsDict = {235: 0.07, 238: 0.93}
     elemAtomFracDict = {'U': 1.0, 'H': 1.0}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -1028,7 +1028,7 @@ def get_pu_metal_material():
     puAtomFractionsDict = {239: 1.0}
     elemAtomFracDict = {'Pu': 1}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, puAtomFractionsDict, 'Pu')
@@ -1057,7 +1057,7 @@ def get_u_metal_material():
     uAtomFractionsDict = {235: 0.05, 238: 0.95}
     elemAtomFracDict = {'U': 1}
     #
-    chordLength = util.calc_chord_length(fuelRadius)
+    chordLength = util.calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -1081,7 +1081,7 @@ def get_uo2_material():
     uAtomFractionsDict = {235: 0.05, 238: 0.95}
     elemAtomFracDict = {'O': 2, 'U': 1}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -1137,7 +1137,7 @@ def get_mox_material():
     puAtomFractionsDict = {239: 1.0}
     elemAtomFracDict = {'O': 2, 'U': 0.95, 'Pu': 0.05}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -1184,7 +1184,7 @@ def get_graphite_material():
     thermalOpt = 'graphite'
     elemAtomFracDict = {'C': 1}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances_as_elemental(ZAList, abundanceDict, 'C')
@@ -1206,7 +1206,7 @@ def get_thick_iron_material():
     thermalOpt = 'none'
     elemAtomFracDict = {'Fe': 1}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -1235,7 +1235,7 @@ def get_iron_material():
     thermalOpt = 'none'
     elemAtomFracDict = {'Fe': 1}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -1260,7 +1260,7 @@ def get_h2o_material():
     #
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     #
     material = Material(
         shortName=shortName, longName=longName,
@@ -1318,7 +1318,7 @@ def get_c5g7_low_mox_material():
     amAtomFractionsDict = {241: 1.}
     elemAtomFracDict = {'U': 0.21573257, 'Pu': 0.009613, 'Am': 0.00012662, 'O': 0.45094438, 'Zr': 0.12712441, 'Al': 0.19645902}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -1344,7 +1344,7 @@ def get_c5g7_med_mox_material():
     amAtomFractionsDict = {241: 1.}
     elemAtomFracDict = {'U': 0.2144792, 'Pu': 0.01529919, 'Am': 0.00019366, 'O': 0.44832447, 'Zr': 0.12638584, 'Al': 0.19531763}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -1371,7 +1371,7 @@ def get_c5g7_high_mox_material():
     amAtomFractionsDict = {241: 1.}
     elemAtomFracDict = {'U': 0.21365168, 'Pu': 0.01905021, 'Am': 0.00024114, 'O': 0.44659472, 'Zr': 0.12589821, 'Al': 0.19456404}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -1396,7 +1396,7 @@ def get_c5g7_uo2_material():
     uAtomFractionsDict = {235: 3.74216E-02, 238: 9.62578E-01}
     elemAtomFracDict = {'U': 0.22538375, 'O': 0.45066999, 'Zr': 0.12726695, 'Al': 0.19667931}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -1418,7 +1418,7 @@ def get_c5g7_moderator_material():
     thermalOpt = 'h2o'
     elemAtomFracDict = {'O': 0.33324115, 'H': 0.66648231, 'B': 2.765404E-04}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -1439,7 +1439,7 @@ def get_c5g7_guide_tube_material():
     thermalOpt = 'h2o'
     elemAtomFracDict = {'O': 0.17459076, 'H':  0.34918152, 'B': 0.00014488, 'Al': 0.47608284}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -1461,7 +1461,7 @@ def get_c5g7_fission_chamber_material():
     uAtomFractionsDict = {235: 1.0}
     elemAtomFracDict = {'U': 5.2117E-08, 'O': 0.174590749, 'H': 0.349181499, 'B': 0.000144884, 'Al': 0.476082816}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -1483,7 +1483,7 @@ def get_c5g7_control_rod_material():
     thermalOpt = 'free'
     elemAtomFracDict = {'Al': 0.61969028, 'Ag': 0.30424777, 'In': 0.05704646, 'Cd': 0.01901549}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -1530,7 +1530,7 @@ def get_depleted_triga_fuel_material():
     erAtomFractionsDict = {162: 0.00137343144164, 164: 0.0159304392447, 166: 0.334071882669, 167: 0.199177751989, 168: 0.30050371386, 170: 0.148942780795}
     elemMassFracDict = {'U': 0.300040763497, 'Np': 5.51300952526e-06, 'Pu': 0.000358903274981, 'Kr': 3.44055902736e-06, 'Mo': 4.42040914636e-05, 'Tc': 4.74403500563e-05, 'Ru': 4.10396870386e-05, 'Rh': 2.38978004217e-05, 'Pd': 8.66313582917e-06, 'Ag': 3.51488451214e-07, 'Cd': 5.34122209673e-08, 'I': 3.52451301271e-05, 'Xe': 2.12993243475e-14, 'Cs': 0.000197945243164, 'Ba': 6.65278315976e-07, 'La': 7.03637701299e-05, 'Pr': 6.27897228019e-05, 'Nd': 0.000109340460356, 'Pm': 1.47672440039e-05, 'Sm': 3.12491981564e-05, 'Eu': 2.37042807623e-06, 'Gd': 7.48212729834e-08, 'Er': 0.00860558224939, 'Zr': 0.675063181105, 'H': 0.0115483336522, 'C': 0.00364500346199, 'Hf': 3.88179282427e-05}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemMassFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U', 'Mass')
@@ -1601,7 +1601,7 @@ def get_depleted_triga_fuel_material_0():
     erAtomFractionsDict = {162: 0.00137598775175, 164: 0.0159425401897, 166: 0.334225123263, 167: 0.203765475762, 168: 0.295726872103, 170: 0.14896400093}
     elemMassFracDict = {'U': 0.577261099635, 'Np': 9.83066023567e-06, 'Pu': 0.000641010139292, 'Kr': 6.14038720784e-06, 'Mo': 7.83261923633e-05, 'Tc': 8.46397540944e-05, 'Ru': 7.32235072512e-05, 'Rh': 4.25306093512e-05, 'Pd': 1.54430692546e-05, 'Ag': 6.24461916685e-07, 'Cd': 9.90783178258e-08, 'I': 6.28971369797e-05, 'Xe': -3.39206680941e-14, 'Cs': 0.000353295367407, 'Ba': 1.28879873541e-06, 'La': 0.000125545820228, 'Pr': 0.000111782849074, 'Nd': 0.000195011942252, 'Pm': 2.69089775217e-05, 'Sm': 5.51941031766e-05, 'Eu': 4.23021088073e-06, 'Gd': 1.3253849464e-07, 'Er': 0.0182166597237, 'Zr': 1.28978397707, 'H': 0.0220643876356, 'C': 0.00696418823189, 'Hf': 7.41660088593e-05}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemMassFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U', 'Mass')
@@ -1657,7 +1657,7 @@ def get_triga_fuel_material():
     #elemAtomFracDict = {'U': 0.062260112, 'Np': 1E-24, 'Pu': 1E-24, 'Am': 1E-24, 'Cm': 1E-24, 'Xe': 1E-24, 'Sm': 1E-24, 'Zr': 0.370555099, 'Hf': 2.22332E-05, 'Er': 0.002650567, 'C': 0.000205141, 'H': 0.564306848}
     elemAtomFracDict = {'U': 0.062260112, 'Zr': 0.370555099, 'Hf': 2.22332E-05, 'Er': 0.002650567, 'C': 0.000205141, 'H': 0.564306848}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -1694,7 +1694,7 @@ def get_ctriga_fuel_material():
     hAtomFractionsDict = {1: 5.64241953e-01, 2: 6.48952875e-05}
     elemAtomFracDict = {'U': 6.22603E-02, 'Zr': 3.70556E-01, 'Hf': 2.22102E-05, 'Er': 2.64813E-03, 'C': 2.05142E-04, 'H': 5.64308E-01}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -1723,7 +1723,7 @@ def get_triga_clad_material():
     thermalOpt = 'free'
     elemAtomFracDict = {'Cr': 0.202441879, 'Fe': 0.687731801, 'Ni': 0.089657823, 'Mn': 0.020168498}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -1751,7 +1751,7 @@ def get_ctriga_clad_material():
     niAtomFractionsDict = {58: 0.062340, 60: 0.024654, 60: 0.001085, 62: 0.003504, 64: 0.000917}
     elemMassFracDict = {'C': 0.0003, 'Si': 0.005, 'P': 0.000225, 'S': 0.00015, 'Cr': 0.19, 'Mn': 0.01, 'Fe': 0.701825, 'Ni': 0.0925}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemMassFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances_as_elemental(ZAList, abundanceDict, 'C')
@@ -1781,7 +1781,7 @@ def get_triga_zirconium_material():
     thermalOpt = 'free'
     elemAtomFracDict = {'Zr': 1.0}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -1804,7 +1804,7 @@ def get_triga_graphite_material():
     thermalOpt = 'graphite'
     elemAtomFracDict = {'C': 1.0}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances_as_elemental(ZAList, abundanceDict, 'C')
@@ -1828,7 +1828,7 @@ def get_triga_borated_graphite_material():
     thermalOpt = 'graphite'
     elemAtomFracDict = {'C': 0.788925928, 'B': 0.211074072}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances_as_elemental(ZAList, abundanceDict, 'C')
@@ -1853,7 +1853,7 @@ def get_triga_b4c_material():
     bAtomFractionsDict = {10: 0.020950, 11: 0.084310}
     elemAtomFracDict = {'C': 0.026320, 'B': 0.105260}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances_as_elemental(ZAList, abundanceDict, 'C')
@@ -1878,7 +1878,7 @@ def get_triga_irradiation_tube_material():
     thermalOpt = 'h2o'
     elemAtomFracDict = {'O': 0.29203693, 'H': 0.58387295, 'N': 0.00038432, 'Al': 0.12370580}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -1901,7 +1901,7 @@ def get_triga_moderator_material():
     thermalOpt = 'h2o'
     elemAtomFracDict = {'O': 1.0, 'H': 2.0}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -1924,7 +1924,7 @@ def get_triga_air_tube_material():
     thermalOpt = 'h2o'
     elemAtomFracDict = {'O': 0.00017253, 'H': 0.00017253, 'N': 0.00017253}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -1949,7 +1949,7 @@ def get_triga_grid_plate_material():
     #thermalOpt = 'free'
     elemAtomFracDict = {'Al': 0.058693, 'Fe': 0.000502}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -1972,7 +1972,7 @@ def get_triga_air_material():
     thermalOpt = 'free'
     elemAtomFracDict = {'O': 0.2, 'N': 0.8}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -1995,7 +1995,7 @@ def get_triga_lead_material():
     thermalOpt = 'free'
     elemAtomFracDict = {'Pb': 1.0}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -2020,7 +2020,7 @@ def get_bruss_enriched_rod_fuel_material():
     uAtomFractionsDict = {238: 0.95, 235: 0.05}
     elemAtomFracDict = {'O': 2, 'U': 1}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -2048,7 +2048,7 @@ def get_kord_fuel_material():
     uAtomFractionsDict = {238: 1.0}
     elemAtomFracDict = {'O': 2, 'U': 1}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -2075,7 +2075,7 @@ def get_kord_rod_fuel_material():
     uAtomFractionsDict = {238: 1.0}
     elemAtomFracDict = {'O': 2, 'U': 1}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -2102,7 +2102,7 @@ def get_kord_enriched_rod_fuel_material():
     uAtomFractionsDict = {238: 0.96, 235: 0.04}
     elemAtomFracDict = {'O': 2, 'U': 1}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -2130,7 +2130,7 @@ def get_kord_mox_rod_fuel_material():
     puAtomFractionsDict = {239: 1.0}
     elemAtomFracDict = {'O': 2, 'U': 0.95, 'Pu': 0.05}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -2158,7 +2158,7 @@ def get_kord_enriched_fuel_material():
     uAtomFractionsDict = {238: 0.96, 235: 0.04}
     elemAtomFracDict = {'O': 2, 'U': 1}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     override_abundances(ZAList, abundanceDict, uAtomFractionsDict, 'U')
@@ -2181,7 +2181,7 @@ def get_kord_zirconium_material():
     thermalOpt = 'free'
     elemAtomFracDict = {'Zr': 1.0}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -2203,7 +2203,7 @@ def get_kord_clad_material():
     thermalOpt = 'free'
     elemAtomFracDict = {'O': 0.0070946, 'Cr': 0.0017464, 'Fe': 0.0034148, 'Zr': 0.9766522, 'Sn': 0.011092}
     #
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
     #
@@ -2237,7 +2237,7 @@ def get_multi_temperature_h2o_material_base():
     #
     symDict, ZList, ZAList = get_all_isotopes(elemAtomFracDict)
     abundanceDict = lookup_natl_abundances(ZAList)
-    chordLength = calc_chord_length(fuelRadius)
+    chordLength = calc_chord_length("cylinder", fuelRadius)
     #
     material = Material(
         shortName=shortName, longName=longName,
