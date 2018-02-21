@@ -50,7 +50,7 @@ Using the Python codes requires you have the following installed on your system:
 * [uncertainties](https://pypi.python.org/pypi/uncertainties/) (2.4.6 or later)
 * [nuclide-data](https://github.com/attom/nuclide-data)
 * [iapws](https://github.com/jjgomera/iapws/) (steam tables, used in [materials\_materials.py](src/materials_materials.py))
-* [NJOY99.364](http://t2.lanl.gov/nis/codes/njoy99/) (used with [materials\_njoy.py](src/materials_njoy.py), [write\_njoy.py](src/write_njoy.py), [Readgroupr.py](src/Readgroupr.py))
+* [NJOY2016](https://njoy.github.io/Build/) (used with [materials\_njoy.py](src/materials_njoy.py), [write\_njoy.py](src/write_njoy.py), [Readgroupr.py](src/Readgroupr.py))
 
 ### Examples ###
 
@@ -83,7 +83,44 @@ An example of how to run and produce FEDS XS is given in [examples/create\_xs.sh
 
 ### How do I get set up? ###
 
-* First, download nuclide-data and put it in `dat`:
+* First, install NJOY2016 in some directory:
+```
+# Make sure you have the latest versions of cmake, gcc, and gfortran
+# In ubuntu, this is done using by:
+sudo apt-get install cmake
+sudo apt-get install gcc
+sudo apt-get install gfortran
+
+# Download the source code
+git clone https://github.com/njoy/NJOY2016.git
+
+# Configure the build process
+cd NJOY2016
+mkdir bin
+cd bin
+cmake ../
+
+# Build NJOY16
+make
+
+# Test NJOY16
+make test
+```
+
+
+* Then, go to your barnfire directory and download the endf data:
+
+```
+# Go to the barnfire source directory
+cd src
+
+# Download ENDF data (this may take a while)
+sh download_endf.sh 
+
+# Copy the "downloaded_endf_files" directory to your barnfire/dat/ directory or to your scratch space
+```
+
+* Then, download nuclide-data and put it in `dat`:
 
 ```
 #!bash
@@ -137,6 +174,7 @@ Of course, you should replace `[username]` with your username and `[NJOY_PATH]` 
 
 ### Who do I talk to? ###
 
+* [Pablo Vaquer](mailto:mdcpablo@tamu.edu)
 * [Yunhuang Zhang](mailto:greatfrog@tamu.edu)
 * [Andrew Till](mailto:attom@tamu.edu)
 
