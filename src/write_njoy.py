@@ -840,7 +840,7 @@ def get_temporary_tapes_ace(tapes, pendfOutTape, endfThermalTapeList, numTempera
 
 ###############################################################################
 class NJOYDat():
-    def __init__(self, A=None, Z=None, nuclideName=None, thermalNuclideName=None, thermalFileName=None, endfName=None, endfFile=None, mat=None, aceExt=None, thermList=[0], sig0List=[1e10], groupBdrs=None, groupOpt=0, isFissionable=False, hasDelayedNu=False, hasDelayedChis=False, includeMF6=True, usePURR=False, legendreOrder=0, inelasticMTList=[], thermalMTList=[], matThermalList=[], endfThermalFileList=[]):
+    def __init__(self, A=None, Z=None, nuclideName=None, thermalNuclideName=None, thermalFileName=None, endfName=None, endfFile=None, mat=None, aceExt=None, thermList=[0], sig0List=[1e10], groupBdrs=None, groupOpt=0, weightOpt=[2], isFissionable=False, hasDelayedNu=False, hasDelayedChis=False, includeMF6=True, usePURR=False, legendreOrder=0, inelasticMTList=[], thermalMTList=[], matThermalList=[], endfThermalFileList=[]):
         # General
         # Nuclide information
         self.A = A
