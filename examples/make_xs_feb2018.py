@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append('/home/mdcpablo/bin/barnfire/src/')
+sys.path.append('/home/pablo/barnfire/src/')
 import directories
 import numpy as np
 from datetime import datetime
