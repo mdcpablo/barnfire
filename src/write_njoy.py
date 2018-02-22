@@ -11,8 +11,9 @@ from datetime import datetime
 #TPL
 #import numpy as np
 #MINE
-from directories import try_mkdir, try_make_exe, get_common_directories
+from directories import try_mkdir, try_make_exe, get_common_directories, get_scratch_directories
 
+"""
 def create_thermal_ace_njoy_script(dat, tapes):
     '''Create NJOY file to generate a thermal ACE output. These are done for each thermal treatment and each temperature.'''
 
@@ -23,7 +24,8 @@ def create_thermal_ace_njoy_script(dat, tapes):
     endfDirr = dirDict['endf']
     pendfRootDirr = dirDict['pendf']
     aceRootDirr = dirDict['ace']
-    njoyPath = os.path.join(dirDict['njoyInstall'], 'xnjoy_thermr') #using the latest patched NJOY2012
+    scratchDict = get_scratch_directories(os.path.abspath(os.environ['SCRATCH_BARN']))
+    njoyPath = os.path.join(scratchDict['njoyInstall'], 'njoy') #using the latest patched NJOY2012
     #
     pendfDirr = os.path.join(pendfRootDirr, str(dat.nuclideName))
     aceDirr = os.path.join(aceRootDirr, str(dat.thermalFileName))
@@ -56,7 +58,7 @@ def create_thermal_ace_njoy_script(dat, tapes):
     deck.append(["#! /usr/bin/env bash"])
     deck.append(["echo 'NJOY Problem {0} {1} (PENDF to thermal ACE)'".format(dat.thermalNuclideName, dat.endfName)])
     deck.append(["echo 'Getting ENDF input tape, PENDF input tape and NJOY executable'"])
-    deck.append(['ln -fs {0} xnjoy'.format(relPathNJOYAce)])
+    deck.append(['ln -fs {0} njoy'.format(relPathNJOYAce)])
     deck.append(['ln -fs {0} tape{1:02g}'.format(relPathEndfAce, tapes.endf)])
     deck.append(['ln -fs {0} tape{1:02g}'.format(relPathPendfAce, abs(pendfOutTape))])
     for endfTape, relPath in zip(endfNonFreeThermalTapeList, relPathThermalAceList):
@@ -66,7 +68,7 @@ def create_thermal_ace_njoy_script(dat, tapes):
     create_moder_input(deck, dat, tapes.endf, tapes.bendf)
     deck.append(['stop'])
     deck.append(["EOF"])
-    deck.append(["./xnjoy<input"])
+    deck.append(["./njoy<input"])
     for iT in range(numTemperatures):
         # Do multiple calls to NJOY (bug in NJOY somewhere)
         deck.append(["cat>input <<EOF"])
@@ -76,8 +78,9 @@ def create_thermal_ace_njoy_script(dat, tapes):
             tapes.viewrAceStart, iT)
         deck.append(['stop'])
         deck.append(["EOF"])
-        deck.append(["./xnjoy<input"])
+        deck.append(["./njoy<input"])
     deck.append(["echo 'Cleaning up and saving ACE files'"])
+
     aceFiles = []
     aceCERTDir = '/scratch/yunhuang/barnfire/xs/cert_ace'
     for i in range(numTemperatures):
@@ -91,13 +94,14 @@ def create_thermal_ace_njoy_script(dat, tapes):
         deck.append(['cp -f {0} {1}/'.format(aceFile, aceCERTDir)])
         deck.append(['cp -f {0} {1}/'.format(aceFileDir, aceCERTDir)])
         deck.append(['ps2pdf tape{0:02g} {1}'.format(viewrOut, plotName)])
-    deck.append(['rm -f xnjoy'])
+    deck.append(['rm -f njoy'])
     tapeNamesToRemove = ' '.join(get_temporary_tapes_ace(tapes, pendfOutTape, endfNonFreeThermalTapeList, numTemperatures, False))
     deck.append(['rm -f {0}'.format(tapeNamesToRemove)])
     try_mkdir(aceDirr)
     print_njoy_file(aceScriptPath, deck)
 
     return aceScriptPath, aceFiles
+"""
 
 def create_njoy_script(dat, tapes):
     '''Create three NJOY files: one to generate a PENDF output, one to generate a GENDF output, and one to generate an ACE output'''
@@ -109,7 +113,8 @@ def create_njoy_script(dat, tapes):
     pendfRootDirr = dirDict['pendf']
     gendfRootDirr = dirDict['gendf']
     aceRootDirr = dirDict['ace']
-    njoyPath = os.path.join(dirDict['njoyInstall'], 'xnjoy_thermr')
+    scratchDict = get_scratch_directories(os.path.abspath(os.environ['SCRATCH_BARN']))
+    njoyPath = os.path.join(scratchDict['njoyInstall'], 'njoy')
     #
     pendfDirr = os.path.join(pendfRootDirr, str(dat.nuclideName))
     gendfDirr = os.path.join(gendfRootDirr, str(dat.nuclideName))
@@ -147,6 +152,7 @@ def create_njoy_script(dat, tapes):
     gendfPath = os.path.join(gendfDirr, gendfFile)
     relPathPendfGendf = os.path.relpath(pendfPath, gendfDirr)
     readgrouprPath = os.path.join(pyDirr, 'Readgroupr.py')
+
     #
     matxsFile = 'matxs' 
     matxsDir = '/scratch/yunhuang/barnfire/xs/cert_matxs'
@@ -161,7 +167,7 @@ def create_njoy_script(dat, tapes):
     deck.append(['#! /usr/bin/env bash'])
     deck.append(["echo 'NJOY Problem {0} {1} (ENDF to PENDF)'".format(dat.nuclideName, dat.endfName)])
     deck.append(["echo 'Getting ENDF input tapes and NJOY executable'"])
-    deck.append(['ln -fs {0} xnjoy'.format(relPathNJOYPendf)])
+    deck.append(['ln -fs {0} njoy'.format(relPathNJOYPendf)])
     deck.append(['ln -fs {0} tape{1:02g}'.format(relPathEndfPendf, tapes.endf)])
     for endfTape, relPath in zip(endfNonFreeThermalTapeList, relPathThermalPendfList):
         deck.append(['ln -fs {0} tape{1:02g}'.format(relPath, endfTape)])
@@ -181,11 +187,11 @@ def create_njoy_script(dat, tapes):
     create_moder_input(deck, dat, pendfOutTape, tapes.pendfOutASCII)
     deck.append(['stop'])
     deck.append(['EOF'])
-    deck.append(['./xnjoy<input'])
+    deck.append(['./njoy<input'])
     deck.append(["echo 'Cleaning up and saving PENDF file'"])
     deck.append(['cp -f tape{0:02g} {1}'.format(abs(pendfOutTape), pendfFile)])
     deck.append(['cp -f tape{0:02g} {1}'.format(tapes.pendfOutASCII, pendfFileASCII)])
-    deck.append(['rm -f xnjoy'])
+    deck.append(['rm -f njoy'])
     tapeNamesToRemove = ' '.join(get_temporary_tapes_pendf(tapes, endfNonFreeThermalTapeList, numThermals))
     deck.append(['rm -f {0}'.format(tapeNamesToRemove)])
     try_mkdir(pendfDirr)
@@ -197,7 +203,7 @@ def create_njoy_script(dat, tapes):
     deck.append(["#! /usr/bin/env bash"])
     deck.append(["echo 'NJOY Problem {0} {1} (PENDF to GENDF)'".format(dat.nuclideName, dat.endfName)])
     deck.append(["echo 'Getting ENDF input tape, PENDF input tape and NJOY executable'"])
-    deck.append(['ln -fs {0} xnjoy'.format(relPathNJOYGendf)])
+    deck.append(['ln -fs {0} njoy'.format(relPathNJOYGendf)])
     deck.append(['ln -fs {0} tape{1:02g}'.format(relPathEndfGendf, tapes.endf)])
     deck.append(['ln -fs {0} tape{1:02g}'.format(relPathPendfGendf, abs(pendfOutTape))])
     deck.append(["echo 'Running NJOY'"])
@@ -206,7 +212,7 @@ def create_njoy_script(dat, tapes):
     dat.hasDelayedNu, dat.hasDelayedChis = hasDelayed(endfPath)
     create_groupr_input(deck, dat, tapes.bendf, pendfOutTape, tapes.grouprIn, tapes.grouprOut)
     create_moder_input(deck, dat, tapes.grouprOut, tapes.gendfOut)  # get GENDF in ASCII for record
-    create_matxsr_input(deck, dat, tapes.gendfOut, tapes.gaminrOut, tapes.matxsOut)
+    #create_matxsr_input(deck, dat, tapes.gendfOut, tapes.gaminrOut, tapes.matxsOut)
     # It seems MODER is not needed after MATXSR
     #  create_moder_input(deck, dat, tapes.matxsOut, tapes.gendfOut)
     create_errorr_input(deck, dat, tapes.bendf, pendfOutTape, tapes.grouprIn, tapes.errorrOut)
@@ -215,15 +221,15 @@ def create_njoy_script(dat, tapes):
         plotNames = create_plotr_inputs(deck, dat, tapes.gendfOut, tapes.plotrOut, tapes.viewrOut)
     deck.append(['stop'])
     deck.append(["EOF"])
-    deck.append(["./xnjoy<input"])
+    deck.append(["./njoy<input"])
     deck.append(["echo 'Cleaning up, saving GROUPR and MATXS file'"])
     if doPlotr:
         for plotName, viewrOut in zip(plotNames, tapes.viewrOut):
             deck.append(['ps2pdf tape{0:02g} {1}'.format(viewrOut, plotName)])
     deck.append(['cp -f tape{0:02g} {1}'.format(tapes.gendfOut, gendfFile)])
-    deck.append(['cp -f tape{0:02g} {1}'.format(tapes.matxsOut, matxsFile)])
-    deck.append(['cp -f matxs {0}/{1}.dat'.format(matxsDir, dat.nuclideName)])
-    deck.append(['rm -f xnjoy'])
+    #deck.append(['cp -f tape{0:02g} {1}'.format(tapes.matxsOut, matxsFile)])
+    #deck.append(['cp -f matxs {0}/{1}.dat'.format(matxsDir, dat.nuclideName)])
+    deck.append(['rm -f njoy'])
     tapeNamesToRemove = ' '.join(get_temporary_tapes_gendf(tapes, pendfOutTape, doPlotr))
     deck.append(['rm -f {0}'.format(tapeNamesToRemove)])
     optionalComment = ''
@@ -234,12 +240,14 @@ def create_njoy_script(dat, tapes):
     try_mkdir(gendfDirr)
     print_njoy_file(gendfScriptPath, deck)
 
+    aceFiles = []
+    '''
     # Script to run NJOY from PENDF to (non-thermal) ACE:
     deck = []
     deck.append(["#! /usr/bin/env bash"])
     deck.append(["echo 'NJOY Problem {0} {1} (PENDF to ACE)'".format(dat.nuclideName, dat.endfName)])
     deck.append(["echo 'Getting ENDF input tape, PENDF input tape and NJOY executable'"])
-    deck.append(['ln -fs {0} xnjoy'.format(relPathNJOYAce)])
+    deck.append(['ln -fs {0} njoy'.format(relPathNJOYAce)])
     deck.append(['ln -fs {0} tape{1:02g}'.format(relPathEndfAce, tapes.endf)])
     deck.append(['ln -fs {0} tape{1:02g}'.format(relPathPendfAce, abs(pendfOutTape))])
     deck.append(["echo 'Running NJOY'"])
@@ -251,7 +259,7 @@ def create_njoy_script(dat, tapes):
         create_moder_input(deck, dat, pendfOutTape, tapes.purrOut)
     deck.append(['stop'])
     deck.append(["EOF"])
-    deck.append(["./xnjoy<input"])
+    deck.append(["./njoy<input"])
     for iT in range(numTemperatures):
         # Do multiple calls to NJOY (bug in NJOY somewhere)
         deck.append(["cat>input <<EOF"])
@@ -261,7 +269,7 @@ def create_njoy_script(dat, tapes):
             tapes.viewrAceStart, iT)
         deck.append(['stop'])
         deck.append(["EOF"])
-        deck.append(["./xnjoy<input"])
+        deck.append(["./njoy<input"])
     deck.append(["echo 'Cleaning up and saving ACE files'"])
     aceFiles = []
     aceCERTDir = '/scratch/yunhuang/barnfire/xs/cert_ace'
@@ -276,11 +284,12 @@ def create_njoy_script(dat, tapes):
         deck.append(['cp -f {0} {1}/'.format(aceFile, aceCERTDir)])
         deck.append(['cp -f {0} {1}/'.format(aceFileDir, aceCERTDir)])
         deck.append(['ps2pdf tape{0:02g} {1}'.format(viewrOut, plotName)])
-    deck.append(['rm -f xnjoy'])
+    deck.append(['rm -f njoy'])
     tapeNamesToRemove = ' '.join(get_temporary_tapes_ace(tapes, pendfOutTape, [], numTemperatures, True))
     deck.append(['rm -f {0}'.format(tapeNamesToRemove)])
     try_mkdir(aceDirr)
     print_njoy_file(aceScriptPath, deck)
+    '''
 
     return pendfScriptPath, gendfScriptPath, aceScriptPath, aceFiles
 

@@ -89,7 +89,7 @@ def make_scratch_directories():
 def copy_xnjoy():
     '''Copy xnjoy to the scratch location'''
     dirDict = get_common_directories()
-    njoyExecutable = 'xnjoy'
+    njoyExecutable = 'njoy'
     inPath = os.path.join(dirDict['njoyBuild'], njoyExecutable)
     outPath = dirDict['njoyInstall']
     try_cp(inPath, outPath)
