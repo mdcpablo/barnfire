@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append('/home/pablo/barnfire/src/')
+sys.path.append('/home/mdcpablo/barnfire/src/')
 import directories
 import numpy as np
 from datetime import datetime
@@ -372,6 +372,10 @@ def create_PDT_xs(prob, geom):
         f3.write("cp $SCRATCH_BARN/xs/pdtxs/$%s_xs $scriptdir/$%s_cx \n" %(mod.Name, mod.Name) )
     for fuel in geom.FuelList:
         f3.write("cp $SCRATCH_BARN/xs/pdtxs/$%s_xs $scriptdir/$%s_cx \n" %(fuel.Name, fuel.Name) )
+    for mod in geom.ModList:
+        f3.write("cp $SCRATCH_BARN/dat/indicators/wgt_%s_$res.txt $scriptdir/%s_%i.wgt \n" %(fuel.Name, fuel.Name, num_FEDS_groups) )
+    for fuel in geom.FuelList:
+        f3.write("cp $SCRATCH_BARN/dat/indicators/wgt_%s_$res.txt $scriptdir/%s_%i.wgt \n" %(fuel.Name, fuel.Name, num_FEDS_groups) )
     f3.write("#######################\n")
 
     f3.close()
@@ -1000,23 +1004,23 @@ prob_1.filename_format = ('short')
 
 prob_1.range_bounds = [1e-5, 1.77828, 31622.8, 1.42e7]
 prob_1.log_spacing = True
-prob_1.num_low_E_bins = 29
-prob_1.num_mid_E_bins = 30
-prob_1.num_high_E_bins = 30
+prob_1.num_low_E_bins = 99
+prob_1.num_mid_E_bins = 100
+prob_1.num_high_E_bins = 100
 
-prob_1.num_bands_RRR = 30
+prob_1.num_bands_RRR = 200
 prob_1.min_binwidth = 1e-8
 
 prob_1.create_multigroup_structure = True
 prob_1.create_PDT_cross_section = True
-prob_1.new_PENDF = False
+prob_1.new_PENDF = True
 prob_1.new_GENDF = True
 prob_1.start_at_step = 0
-prob_1.run_PDT_cross_section = True
+prob_1.run_PDT_cross_section = False
 prob_1.scat_leg_order = 7
 prob_1.apportion_algorithm = 'equal'
 prob_1.plot_fluxes = False
-prob_1.create_MCNP_cross_sections = True
+prob_1.create_MCNP_cross_sections = False
 prob_1.propagate_uncertainties = False
 
 simulate(prob_1, geom)

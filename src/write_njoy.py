@@ -9,7 +9,7 @@ Write NJOY script
 import os
 from datetime import datetime
 #TPL
-#import numpy as np
+import numpy as np
 #MINE
 from directories import try_mkdir, try_make_exe, get_common_directories, get_scratch_directories
 
@@ -215,7 +215,7 @@ def create_njoy_script(dat, tapes):
     #create_matxsr_input(deck, dat, tapes.gendfOut, tapes.gaminrOut, tapes.matxsOut)
     # It seems MODER is not needed after MATXSR
     #  create_moder_input(deck, dat, tapes.matxsOut, tapes.gendfOut)
-    create_errorr_input(deck, dat, tapes.bendf, pendfOutTape, tapes.grouprIn, tapes.errorrOut)
+    #create_errorr_input(deck, dat, tapes.bendf, pendfOutTape, tapes.grouprIn, tapes.errorrOut)
     if False and dat.numGroups <= 200:
         doPlotr = True
         plotNames = create_plotr_inputs(deck, dat, tapes.gendfOut, tapes.plotrOut, tapes.viewrOut)
@@ -635,7 +635,7 @@ def create_groupr_input(deck, dat, tapeENDFIn, tapePENDFIn, tapeGroupsIn, tapeGE
         groupFormat.append('/')
         if rowPos != 1:
             deck.append(groupFormat)
-    if (dat.weightOpt[0] == 4):
+    if (int(dat.weightOpt[0]) == 4):
         thermal_upper_limit = np.float(dat.weightOpt[1])
         thermal_avg_eV      = np.float(dat.weightOpt[2])
         fast_lower_limit    = np.float(dat.weightOpt[3])
