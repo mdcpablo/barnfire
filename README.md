@@ -118,6 +118,7 @@ cd src
 sh download_endf.sh 
 
 # Copy the "downloaded_endf_files" directory to your barnfire/dat/ directory or to your scratch space
+mv downloaded_endf_files ../dat/endf
 ```
 
 * Then, download nuclide-data and put it in `dat`:
