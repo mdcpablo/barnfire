@@ -99,6 +99,7 @@ cd NJOY2016
 mkdir bin
 cd bin
 cmake ../
+# if the last step doesn't work delete your 'bin' directory and 'mkdir bin' again and comment out any lines that are preventing your cmake from continuing (e.g. add a '#' before the line 'set( njoy_GNU_minimum_version 5.1 )' to make cmake not require the latest version of GNU)
 
 # Build NJOY16
 make
