@@ -99,13 +99,15 @@ cd NJOY2016
 mkdir bin
 cd bin
 cmake ../
-# if the last step doesn't work delete your 'bin' directory and 'mkdir bin' again and comment out any lines that are preventing your cmake from continuing (e.g. add a '#' before the line 'set( njoy_GNU_minimum_version 5.1 )' to make cmake not require the latest version of GNU)
+# if the last step doesn't work delete your 'bin' directory and 'mkdir bin' again and comment out any lines that are preventing the cmake from progressing (e.g. for example if you do a 'gcc -v' in your terminal and your version of gcc is less than 5.1 you can change the line 'set( njoy_GNU_minimum_version 5.1 )' in your CMakeLists.txt file to 'set( njoy_GNU_minimum_version 4.1 )' or simply comment it out by preceding the line with a '#')
 
 # Build NJOY16
 make
 
 # Test NJOY16
 make test
+# if 'make test' doesn't pass the overwhelming majority of the tests, then delete your 'bin' directory and 'mkdir bin' again and try using the latest version of all NJOY2016 dependencies (e.g. you can change your path on a supercomupting cluster using a command like 'export PATH=/usr/apps/gnu/4.9.3/bin/:$PATH' to get a more recent version of gcc)
+
 ```
 
 
