@@ -288,9 +288,9 @@ def form_and_print_macroscopic_xs(dirr, ZAList, material, numGroups, verbosity=F
     outPath = os.path.join(dirr, outName)
     f = open(outPath, 'w')
     f.write('<newGridXML projectile="n" code_used="Barnfire">\n')
-    f.write('  <materialList>')    
+    f.write('  <crossSectionMTList>')    
     f.write(' %s' %shortName)
-    f.write('</materialList>\n')
+    f.write('</crossSectionMTList>\n')
     f.write('  <ZA>')
     for (Z,A) in ZAList:
         f.write('%i' %int(Z*1000+A))
@@ -305,10 +305,10 @@ def form_and_print_macroscopic_xs(dirr, ZAList, material, numGroups, verbosity=F
     f.write('</crossSectionMTList>\n')
     f.write('  <numGroups>%i</numGroups>\n' %xsDict.G)
     f.write('  <numMoments>%i</numMoments>\n' %xsDict.M)
-    f.write('  <numDelayedNeutronFlavors  ardraParameter="num_precursors">%i</numDelayedNeutronFlavors>\n' %xsDict.D)
-    f.write('  <temperature  unit="K">%f</temperature>\n' %xsDict.T)
+    f.write('  <numDelayedNeutronGroups>%i</numDelayedNeutronGroups>\n' %xsDict.D)
+    f.write('  <temperature>%f</temperature>\n' %xsDict.T)
     
-    f.write('  <grid  unit="MeV"  style="boundaries">\n')
+    f.write('  <grid unit="MeV" style="boundaries">\n')
     f.write('    <values>\n')
     for g in range(xsDict.G+1):
         Eg_MeV = 1e-6*xsDict.Eg[g]
@@ -318,17 +318,7 @@ def form_and_print_macroscopic_xs(dirr, ZAList, material, numGroups, verbosity=F
     f.write('    </values>\n')
     f.write('  </grid>\n')
 
-    f.write('  <energyMid  unit="MeV"  ardraParameter="emid">\n')
-    f.write('    <values>\n')
-    for g in range(xsDict.G):
-        Emid_MeV = 1e-6*0.5*(xsDict.Eg[g]+xsDict.Eg[g+1])
-        f.write('%1.14e' %Emid_MeV)
-        if g != int(xsDict.G-1):
-            f.write(', ')
-    f.write('    </values>\n')
-    f.write('  </energyMid>\n')
-
-    f.write('  <energydE  unit="MeV"  ardraParameter="de">\n')
+    f.write('  <energyMid unit="MeV" style="midpoint">\n')
     f.write('    <values>\n')
     for g in range(xsDict.G):
         dE_MeV = 1e-6*xsDict.dE[g]
@@ -336,19 +326,80 @@ def form_and_print_macroscopic_xs(dirr, ZAList, material, numGroups, verbosity=F
         if g != int(xsDict.G-1):
             f.write(', ')
     f.write('    </values>\n')
-    f.write('  </energydE>\n')
+    f.write('  </energyMid>\n')
 
     f.write('  <%s>\n' %shortName)
     for MT in sorted(xsOut):
         print MT
-        if int(MT) == 1054:
-            f.write('    <MT_1054  ardraParameter="lambda">\n')
+        if int(MT) == 2519:
+            f.write('    <MT_2519 unit  unit="1/cm"  ardraParameter="p">\n')
+            for ell in range(xsDict.M):
+                f.write('      <moment_%i  ardraParameter="p%i">\n' %(ell,ell))
+                for g in range(xsDict.G):
+                    f.write('        <toGroup_%i>\n' %g)
+                    first_fromGroup = int(xsDict.G)
+                    last_fromGroup = -1
+                    for gp in range(xsDict.G):
+                        if np.float(xsOut[MT][ell,g,gp]) > 1e-13:
+                            first_fromGroup = min(gp,first_fromGroup)
+                            last_fromGroup  = max(gp,last_fromGroup)
+                    if last_fromGroup == 0:
+                        f.write('          <fromGroup_range>\n')
+                        f.write('          0\n')   
+                        f.write('          0\n')          
+                        f.write('          </fromGroup_range>\n')  
+                        f.write('          <values> None </values>\n')                                       
+                        f.write('        </toGroup_%i>\n' %g)
+                    else:
+                        f.write('          <fromGroup_range>\n')
+                        f.write('          %i\n' %first_fromGroup)   
+                        f.write('          %i\n' %last_fromGroup)          
+                        f.write('          </fromGroup_range>\n')   
+                        f.write('          <values>\n')                                      
+                        for gp in range(first_fromGroup, last_fromGroup+1):
+                            f.write('%1.6e' %xsOut[MT][ell,g,gp])
+                            if gp != int(last_fromGroup):
+                                f.write(', ')
+                        f.write('          </values>\n')     
+                        f.write('        </toGroup_%i>\n' %g)
+                f.write('      </moment_%i>\n' %ell)
+        elif int(MT) in [2518]:
+            f.write('    <MT_2518>\n')
+            for g in range(xsDict.G):
+                f.write('        <toGroup_%i>\n' %g)
+                first_fromGroup = int(xsDict.G)
+                last_fromGroup = -1
+                for gp in range(xsDict.G):
+                    if np.float(xsOut[MT][g,gp]) > 1e-13:
+                        first_fromGroup = min(gp,first_fromGroup)
+                        last_fromGroup  = max(gp,last_fromGroup)
+                if last_fromGroup == -1:
+                    f.write('          <fromGroup_range>\n')
+                    f.write('          0\n')   
+                    f.write('          0\n')          
+                    f.write('          </fromGroup_range>\n')   
+                    f.write('          <values> None </values>\n')                                 
+                    f.write('        </toGroup_%i>\n' %g)
+                else:
+                    f.write('          <fromGroup_range>\n')
+                    f.write('          %i\n' %first_fromGroup)   
+                    f.write('          %i\n' %last_fromGroup)          
+                    f.write('          </fromGroup_range>\n')     
+                    f.write('          <values>\n')                                    
+                    for gp in range(first_fromGroup, last_fromGroup+1):
+                        f.write('%1.6e' %xsOut[MT][g,gp])
+                        if gp != int(last_fromGroup):
+                            f.write(', ')
+                    f.write('          </values>\n')
+                    f.write('        </toGroup_%i>\n' %g)
+        elif int(MT) == 1054:
+            f.write('    <MT_1054>\n')
             for d in range(xsDict.D):
                 f.write('%1.14e' %xsOut[MT][d])
                 if d != int(xsDict.D-1):
                     f.write(', ')
         elif int(MT) == 2055:
-            f.write('    <MT_2055  ardraParameter="chid">\n')
+            f.write('    <MT_2055>\n')
             for d in range(xsDict.D):
                 f.write('      <delayedNeutronFlavor_%i>\n' %int(d))
                 for g in range(xsDict.G):
@@ -356,46 +407,19 @@ def form_and_print_macroscopic_xs(dirr, ZAList, material, numGroups, verbosity=F
                     if g != int(xsDict.G-1):
                         f.write(', ')
                 f.write('      </delayedNeutronFlavor_%i>\n' %int(d))
-        elif int(MT) == 2518:
-            f.write('    <MT_2518  unit="1/cm"  ardraParameter="sigf">\n')
-            for gp in range(xsDict.G):
-                f.write('        <fromGroup_%i>\n' %gp)
-                for g in range(xsDict.G):
-                    if np.float(xsOut[MT][g,gp]) > 1e-14:
-                        f.write('          <toGroup_%i>' %g)
-                        f.write('%.14e' %xsOut[MT][g,gp])  
-                        f.write('</toGroup_%i>\n' %g)  
-                f.write('        </fromGroup_%i>\n' %gp)
-        elif int(MT) == 2519:
-            f.write('    <MT_2519  unit="1/cm"  ardraParameter="p">\n')
-            for ell in range(xsDict.M):
-                f.write('      <moment_%i  ardraParameter="p%i">\n' %(ell,ell))
-                for gp in range(xsDict.G):
-                    f.write('        <fromGroup_%i>\n' %gp)
-                    for g in range(xsDict.G):
-                        if np.float(xsOut[MT][ell,g,gp]) > 1e-14:
-                            f.write('          <toGroup_%i>' %g)
-                            f.write('%.14e' %xsOut[MT][ell,g,gp])  
-                            f.write('</toGroup_%i>\n' %g)  
-                    f.write('        </fromGroup_%i>\n' %gp)
-                f.write('      </moment_%i>\n' %ell)
-        elif int(MT) == 259:
-            f.write('    <MT_259  unit="s/cm"  ardraParameter="invSpgrp">\n')
-            for g in range(xsDict.G):
-                f.write(str(1e-2*xsOut[MT][g]))
-                if g != int(xsDict.G-1):
-                    f.write(', ')
-        elif int(MT) == 1:
+	    elif int(MT) == 1:
             f.write('    <MT_1  unit="1/cm"  ardraParameter="sigt">\n')
+	    elif int(MT) == 259:
+            f.write('    <MT_259  unit="s/cm"  ardraParameter="invSpgrp">\n')
         else:
-            f.write('    <MT_%i>\n' %MT)
-        if int(MT) not in [2518,2519,1054,2055,259]:
+            f.write('    <MT_%i >\n' %MT)
+        if int(MT) not in [2518,2519,1054,2055]:
             for g in range(xsDict.G):
                 f.write(str(xsOut[MT][g]))
                 if g != int(xsDict.G-1):
                     f.write(', ')
         f.write('    </MT_%i>\n' %MT)
-    f.write('  </%s>\n' %shortName )
+    f.write('  </{0}_{1}>\n'.format(shortName, xsDict.G))
 
     '''
     for (Z,A) in ZAList:
@@ -406,7 +430,7 @@ def form_and_print_macroscopic_xs(dirr, ZAList, material, numGroups, verbosity=F
         f.write('</%i>\n' %int(Z*1000+A))
     '''
 
-    f.write('</newGridXML>\n')
+    f.write('</BarnfireMaterial>\n')
     f.close()
 
 def iterate_one_material(rootDirr, material, maxError, maxIterations, energyMesh=None, fluxDict=None, verbosity=False):

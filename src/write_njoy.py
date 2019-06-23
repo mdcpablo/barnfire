@@ -241,7 +241,6 @@ def create_njoy_script(dat, tapes):
     print_njoy_file(gendfScriptPath, deck)
 
     aceFiles = []
-    '''
     # Script to run NJOY from PENDF to (non-thermal) ACE:
     deck = []
     deck.append(["#! /usr/bin/env bash"])
@@ -272,6 +271,7 @@ def create_njoy_script(dat, tapes):
         deck.append(["./njoy<input"])
     deck.append(["echo 'Cleaning up and saving ACE files'"])
     aceFiles = []
+    '''
     aceCERTDir = '/scratch/yunhuang/barnfire/xs/cert_ace'
     for i in range(numTemperatures):
         tapeAceOut, tapeXSDirOut, viewrOut = tapes.aceStart + i, tapes.aceXSDirStart + i, tapes.viewrAceStart + i
@@ -351,7 +351,7 @@ def create_ace_copier(aceFilesDict):
             deck.append(["cp -f ../{}/{} .".format(nuclide, aceFile)])
     deck.append([""])
     deck.append(["echo 'Copying ACE directory data'"])
-    deck.append(["rm -f xsdir_tail"])
+    #deck.append(["rm -f xsdir_tail"])
     for nuclide in sorted(aceFilesDict):
         for aceFile in sorted(aceFilesDict[nuclide]):
             aceFileDir = 'xsdir.{}'.format(aceFile)
