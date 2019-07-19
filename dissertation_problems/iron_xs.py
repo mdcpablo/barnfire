@@ -1,7 +1,8 @@
 import sys
-#sys.path.append('/home/mdcpablo/barnfire/examples')
+sys.path.append('../src')
 
-from barnfire_driver import *
+from driver import *
+
 
 U = Element()
 U.name = 'u' # lower case 

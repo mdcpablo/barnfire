@@ -1,7 +1,8 @@
 import sys
-#sys.path.append('/home/mdcpablo/barnfire/examples')
+sys.path.append('../src')
 
-from barnfire_driver import *
+from driver import *
+
 
 # MCNP
 """
@@ -46,7 +47,7 @@ modify_indicators_source_code(geom)
 #--------------------------------------------------------------------------------------------------
 prob_1 = problem()
 
-prob_1.create_multigroup_structure = True # set to True... unless you want to manually create a multigroup or coarse-group structure in $SCRATCH_BARN/dat/energy_groups and set "G=your_mg_structure_file" in the bash script (which is produced after running "LLNL_barnfire_driver.py")
+prob_1.create_multigroup_structure = True # set to True... unless you want to manually create a multigroup or coarse-group structure in $SCRATCH_BARN/dat/energy_groups and set "G=your_mg_structure_file" in the bash script (which is produced after running "driver.py")
 prob_1.range_bounds = [1e-5, 1e-3, 1.4e7, 1.42e7] # energy boundaries for the thermal, intermediate, and fast energy ranges, respectively... FEDS is only used in the intermediate region, MG is used for thermal and fast regions
 prob_1.log_spacing = True # energy spacing for MG, and coarse-groups in the intermediate energy range (True=logarithmic, False=linear) 
 

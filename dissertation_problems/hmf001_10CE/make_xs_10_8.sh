@@ -98,6 +98,17 @@ cd $SCRATCH_BARN/xs
 ./RunPendf.sh 
 cd $srcdir 
  
+# Step 2b: Run NJOY to generate the ACE files (can be done after step 2)
+cd $SCRATCH_BARN/xs
+./RunAce.sh
+# Step 2c: Copy ACE files and create xsdir
+cd ace/xdata
+./copyAce.sh
+cd $scriptdir
+# The result should be ACE files and xsdir (tells MCNP where the ACE files are) in $SCRATCH_BARN/xs/ace/xdata
+cp $SCRATCH_BARN/xs/ace/xdata/*.90c $scriptdir/hmf001_10CE/.
+cp xsdir $scriptdir/hmf001_10CE/xsdir_hmf001_10CE
+
 if [ "${unimportantMatsExist}" = 1 ] 
 then 
     echo '------- Step 1: Generating the NJOY inputs -------'  
@@ -109,6 +120,17 @@ then
     ./RunPendf.sh  
     cd $srcdir  
 fi 
+# Step 2b: Run NJOY to generate the ACE files (can be done after step 2)
+cd $SCRATCH_BARN/xs
+./RunAce.sh
+# Step 2c: Copy ACE files and create xsdir
+cd ace/xdata
+./copyAce.sh
+cd $scriptdir
+# The result should be ACE files and xsdir (tells MCNP where the ACE files are) in $SCRATCH_BARN/xs/ace/xdata
+cp $SCRATCH_BARN/xs/ace/xdata/*.90c $scriptdir/hmf001_10CE/.
+cp xsdir $scriptdir/hmf001_10CE/xsdir_hmf001_10CE
+
  
 echo ' The result should be a list of .data files in $scratch/xs/pdtxs ' 
  
@@ -120,14 +142,3 @@ cp $SCRATCH_BARN/dat/indicators/flux.xml $scriptdir/hmf001_10CE/flux_1th_8cg_8el
 cp $SCRATCH_BARN/dat/energy_groups/clust-$g-$res.xml $scriptdir/hmf001_10CE/clust_1th_8cg_8el_1urr.xml
 #######################
 rm *.~ *.pyc
-# Step 11: Run NJOY to generate the ACE files (can be done after step 2)
-cd $SCRATCH_BARN/xs
-./RunAce.sh
-# Step 12: Copy ACE files and create xsdir
-cd ace/xdata
-./copyAce.sh
-cd $scriptdir
-# The result should be ACE files and xsdir (tells MCNP where the ACE files are) in $SCRATCH_BARN/xs/ace/xdata
-cp $SCRATCH_BARN/xs/ace/xdata/*.90c $scriptdir/hmf001_10CE/.
-cp xsdir $scriptdir/hmf001_10CE/xsdir_hmf001_10CE
-
