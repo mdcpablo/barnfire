@@ -3,6 +3,21 @@ import sys
 
 from barnfire_driver import *
 
+# MCNP
+"""
+c Godiva is a critical bare sphere of uranium
+100    1000  -18.74  -10  imp:n=1   $ enriched uranium sphere (godiva)
+999    0              10  imp:n=0   $ all space outside the sphere
+
+10     so 8.7407               $ radius of the godiva sphere
+
+c skip 10 and run a total of 110 keff cycles with 1000 neutrons per cycle
+kcode 100000 1.0 500 5000     $ kcode defines a criticality calculation
+ksrc  0 0 0                    $ initial keff spatial dist is point at origin
+m1000  92235.90c 4.4994E-02  92238.90c 2.4984E-03  92234.90c 4.9184E-04  $ define u with number densities
+print                          $ more useful information in the output file
+"""
+
 U = Element()
 U.name = 'u' # lower case 
 U.Name = 'U' # upper case
@@ -83,8 +98,6 @@ for mg in [100,200,400,600,800]:
     run_barnfire_driver(prob_1, geom)
     prob_1.new_PENDF = False
 ###############################################################################
-'''
-###############################################################################
 prob_1.element_type = 'FEDS'
 prob_1.time_dependent = True
 prob_1.new_PENDF = False
@@ -98,4 +111,19 @@ for mg in [200,400,600,800]:
     run_barnfire_driver(prob_1, geom)
     prob_1.new_PENDF = False
 ###############################################################################
+'''
+
+prob_1.only_create_MCNP_cross_sections = True
+prob_1.element_type = 'FEDS'
+prob_1.time_dependent = True
+prob_1.new_PENDF = True
+prob_1.plot_fluxes = False
+prob_1.apportion_algorithm = 'equal'
+for mg in [10]:
+    prob_1.num_mid_E_bins = mg-2
+    prob_1.num_elements_RRR = mg-2
+    prob_1.dir = ('hmf001_%iCE' %mg) # directory name that will contain Barnfire output and cross sections files
+    prob_1.start_at_step = 0
+    run_barnfire_driver(prob_1, geom)
+    prob_1.new_PENDF = True
 

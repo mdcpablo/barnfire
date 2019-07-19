@@ -14,7 +14,7 @@ mat 2 # 18.4801891202
   6012   0.022465200000000005 
   26000  0.0039430734859 
   74000  0.0010933423512100001 
-  92234  0.010787999999999999 
+  92234  0.010787999999999999
   92235  0.87139 
   92238  0.09032084999999998
 mat 3 # 1.5298810948
@@ -22,6 +22,39 @@ mat 3 # 1.5298810948
 mat 4 # .001293
   7014  0.78
   8016  0.22
+"""
+
+# MCNP
+"""
+C Cell Cards
+100  0                   -10      imp:n=1
+200  1000 -18.4801891202  10 -20  imp:n=1
+300  2000 -1.5298810948   20 -30  imp:n=1
+400  0                        30  imp:n=0
+
+C Surface Cards
+10 so 4.029
+20 so 9.150
+30 so 12.60
+
+C Data Cards
+kcode 3500 1.0 45 345
+ksrc 6 0 0
+C Material Cards
+m1000 92234.90c 0.010788
+      92235.90c 0.87139
+      92238.90c 0.09032085
+      6000.90c  0.0224652
+      26054.90c 0.000230472074
+      26056.90c 0.003617928505
+      26057.90c 0.000083553482
+      26058.90c 0.000011119425
+      74180.90c 0.000001312011
+      74182.90c 0.000289735723
+      74183.90c 0.000156457290
+      74184.90c 0.000335000096
+      74186.90c 0.000310837230
+m2000 6000.90c 1
 """
 
 ###############################################################################
@@ -159,7 +192,6 @@ for mg in [100,200,400,600,800]:
     run_barnfire_driver(prob_1, geom)
     prob_1.new_PENDF = False
 ###############################################################################
-'''
 prob_1.element_type = 'FEDS'
 prob_1.time_dependent = True
 prob_1.new_PENDF = False
@@ -174,8 +206,21 @@ for mg in [600,800]:
     run_barnfire_driver(prob_1, geom)
     prob_1.new_PENDF = False
 ###############################################################################
+'''
 
-
+prob_1.only_create_MCNP_cross_sections = True
+prob_1.element_type = 'FEDS'
+prob_1.time_dependent = True
+prob_1.new_PENDF = True
+prob_1.plot_fluxes = False
+prob_1.apportion_algorithm = 'equal'
+for mg in [10]:
+    prob_1.num_mid_E_bins = mg-2
+    prob_1.num_elements_RRR = mg-2
+    prob_1.dir = ('hmf019_%iCE' %mg) # directory name that will contain Barnfire output and cross sections files
+    prob_1.start_at_step = 0
+    run_barnfire_driver(prob_1, geom)
+    prob_1.new_PENDF = True
 
 
 

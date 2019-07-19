@@ -154,9 +154,6 @@ def create_njoy_script(dat, tapes):
     readgrouprPath = os.path.join(pyDirr, 'Readgroupr.py')
 
     #
-    matxsFile = 'matxs' 
-    matxsDir = '/scratch/yunhuang/barnfire/xs/cert_matxs'
-    #
     aceScriptFile = 'runNJOY.sh'
     aceScriptPath = os.path.join(aceDirr, aceScriptFile)
     aceFileTemplate = '{Z}{A:03}.{e}{s}c'
@@ -271,8 +268,8 @@ def create_njoy_script(dat, tapes):
         deck.append(["./njoy<input"])
     deck.append(["echo 'Cleaning up and saving ACE files'"])
     aceFiles = []
-    '''
-    aceCERTDir = '/scratch/yunhuang/barnfire/xs/cert_ace'
+    #'''
+    aceDir = '/scratch/barnfire/xs/ace'
     for i in range(numTemperatures):
         tapeAceOut, tapeXSDirOut, viewrOut = tapes.aceStart + i, tapes.aceXSDirStart + i, tapes.viewrAceStart + i
         aceFile = aceFileTemplate.format(A=dat.A, Z=dat.Z, s=i, e=dat.aceExt)
@@ -281,15 +278,15 @@ def create_njoy_script(dat, tapes):
         plotName = 'p_xs_{}.pdf'.format(aceFile)
         deck.append(['cp -f tape{0:02g} {1}'.format(tapeAceOut, aceFile)])
         deck.append(['cp -f tape{0:02g} {1}'.format(tapeXSDirOut, aceFileDir)])
-        deck.append(['cp -f {0} {1}/'.format(aceFile, aceCERTDir)])
-        deck.append(['cp -f {0} {1}/'.format(aceFileDir, aceCERTDir)])
+        deck.append(['cp -f {0} {1}/'.format(aceFile, aceDir)])
+        deck.append(['cp -f {0} {1}/'.format(aceFileDir, aceDir)])
         deck.append(['ps2pdf tape{0:02g} {1}'.format(viewrOut, plotName)])
     deck.append(['rm -f njoy'])
     tapeNamesToRemove = ' '.join(get_temporary_tapes_ace(tapes, pendfOutTape, [], numTemperatures, True))
     deck.append(['rm -f {0}'.format(tapeNamesToRemove)])
     try_mkdir(aceDirr)
     print_njoy_file(aceScriptPath, deck)
-    '''
+    #'''
 
     return pendfScriptPath, gendfScriptPath, aceScriptPath, aceFiles
 
@@ -340,6 +337,7 @@ def create_ace_copier(aceFilesDict):
     dirDict = get_common_directories()
     scriptname = 'copyAce.sh'
     runDirr = dirDict['xdata']
+    aceRootDirr = dirDict['ace']
     scriptPath = os.path.join(runDirr, scriptname)
     #
     deck = []
@@ -348,14 +346,14 @@ def create_ace_copier(aceFilesDict):
     deck.append(["echo 'Copying ACE XS data'"])
     for nuclide in sorted(aceFilesDict):
         for aceFile in sorted(aceFilesDict[nuclide]):
-            deck.append(["cp -f ../{}/{} .".format(nuclide, aceFile)])
+            deck.append(["cp -f {}/{}/{} .".format(aceRootDirr, nuclide, aceFile)])
     deck.append([""])
     deck.append(["echo 'Copying ACE directory data'"])
     #deck.append(["rm -f xsdir_tail"])
     for nuclide in sorted(aceFilesDict):
         for aceFile in sorted(aceFilesDict[nuclide]):
             aceFileDir = 'xsdir.{}'.format(aceFile)
-            deck.append(["awk '{{$3=\"{}\"; $4=\"0\"; print }}' ../{}/{} >> xsdir_tail".format(aceFile, nuclide, aceFileDir)])
+            deck.append(["awk '{{$3=\"{}\"; $4=\"0\"; print }}' {}/{}/{} >> xsdir_tail".format(aceFile, aceRootDirr, nuclide, aceFileDir)])
     deck.append(["echo '{}' > xsdir_date".format(datetime.strftime(datetime.now(), '%m/%d/%Y'))])
     deck.append(["echo 'directory' >> xsdir_date"])
     deck.append(["cat xsdir_head xsdir_date xsdir_tail > xsdir"])
@@ -364,7 +362,7 @@ def create_ace_copier(aceFilesDict):
     for nuclide in sorted(aceFilesDict):
         for aceFile in sorted(aceFilesDict[nuclide]):
             plotName = 'p_xs_{}.pdf'.format(aceFile)
-            deck.append(["cp -f ../{}/{} figures".format(nuclide, plotName)])
+            deck.append(["cp -f {}/{}/{} figures".format(aceRootDirr, nuclide, plotName)])
     print_njoy_file(scriptPath, deck)
 
 #####################################################################################

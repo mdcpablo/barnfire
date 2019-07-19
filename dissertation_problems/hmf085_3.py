@@ -25,6 +25,34 @@ mat 3 # .001293
   7014  0.78
   8016  0.22
 """
+
+# MCNP
+"""
+c cell cards
+100  1000 -18.39374 -10        imp:n=1
+200  2000 -7.16      10 -20    imp:n=1
+300  0                   20    imp:n=0
+
+c surface cards
+10 so 7.108868
+20 so 17.26887
+
+c data cards
+m1000 92234.90c  0.0102497847598 
+      92235.90c  0.93956183364500001 
+      92238.90c  0.050188381595599997
+m2000 6000.90c   0.12452 
+      14028.90c  0.032480720731400001 
+      14029.90c  0.00164929205374 
+      14030.90c  0.0010872254928899999 
+      26054.90c  0.049171406440399995 
+      26056.90c  0.77188592412799995 
+      26057.90c  0.0178262121894 
+      26058.90c  0.0023723415938700001
+mode n
+kcode 50000 1 50 1050
+ksrc 0 0 0
+"""
 ###############################################################################
 # HEU
 U = Element()
@@ -127,7 +155,7 @@ prob_1.start_at_step = 0 # Barnfire has 9 steps, set this number to 0 if you don
 
 prob_1.create_MCNP_cross_sections = False
 prob_1.propagate_uncertainties = False
-
+'''
 ###############################################################################
 prob_1.element_type = 'FEDS'
 prob_1.time_dependent = False
@@ -167,6 +195,20 @@ for mg in [100,200,400,600,800]:
     run_barnfire_driver(prob_1, geom)
     prob_1.new_PENDF = False
 ###############################################################################
+'''
+prob_1.only_create_MCNP_cross_sections = True
+prob_1.element_type = 'FEDS'
+prob_1.time_dependent = True
+prob_1.new_PENDF = True
+prob_1.plot_fluxes = False
+prob_1.apportion_algorithm = 'equal'
+for mg in [10]:
+    prob_1.num_mid_E_bins = mg-2
+    prob_1.num_elements_RRR = mg-2
+    prob_1.dir = ('hmf085_3_%iCE' %mg) # directory name that will contain Barnfire output and cross sections files
+    prob_1.start_at_step = 0
+    run_barnfire_driver(prob_1, geom)
+    prob_1.new_PENDF = True
 
 
 

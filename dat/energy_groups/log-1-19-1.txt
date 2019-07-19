@@ -1,0 +1,24 @@
+User-generated using "barnfire_functions.py"
+group upper bound region
+1 1.4200000000e+07 fast
+2 1.4000000000e+07 fast
+3 4.0937498079e+06 resonance
+4 1.1970562493e+06 resonance
+5 3.5003205647e+05 resonance
+6 1.0235311885e+05 resonance
+7 2.9929147188e+04 resonance
+8 8.7516028967e+03 resonance
+9 2.5590623341e+03 resonance
+10 7.4829720990e+02 resonance
+11 2.1881011138e+02 resonance
+12 6.3982417959e+01 resonance
+13 1.8709143659e+01 resonance
+14 5.4707538044e+00 resonance
+15 1.5997069526e+00 resonance
+16 4.6777143070e-01 resonance
+17 1.3678137176e-01 resonance
+18 3.9996336739e-02 resonance
+19 1.1695356846e-02 resonance
+20 3.4198474887e-03 resonance
+21 1.0000000000e-03 thermal
+22 1.0000000000e-05 thermal

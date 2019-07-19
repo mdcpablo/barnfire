@@ -1,0 +1,192 @@
+<newGridXML projectile="n" code_used="Barnfire">
+  <materialList> H2O</materialList>
+  <ZA>1001, 8016</ZA>
+  <crossSectionMTList>1, 259, 1099, 2519</crossSectionMTList>
+  <numGroups>5</numGroups>
+  <numMoments>8</numMoments>
+  <numDelayedNeutronFlavors  ardraParameter="num_precursors">0</numDelayedNeutronFlavors>
+  <temperature  unit="K">293.600000</temperature>
+  <grid  unit="MeV"  style="boundaries">
+    <values>
+1.42000000000000e+01, 1.40000000000000e+01, 5.80878600000000e-03, 2.41014200000000e-06, 1.00000000000000e-09, 0.00000000000000e+00    </values>
+  </grid>
+  <energyMid  unit="MeV"  ardraParameter="emid">
+    <values>
+1.41000000000000e+01, 7.00290439300000e+00, 2.90559807100000e-03, 1.20557100000000e-06, 5.00000000000000e-10    </values>
+  </energyMid>
+  <energydE  unit="MeV"  ardraParameter="de">
+    <values>
+2.00000000000000e-01, 1.39941912140000e+01, 5.80637585800000e-03, 2.40914200000000e-06, 1.00000000000000e-09    </values>
+  </energydE>
+  <H2O>
+    <MT_1  unit="1/cm"  ardraParameter="sigt">
+0.0989818366711, 0.145857377124, 1.46981070877, 1.53782748707, 12.1948365458    </MT_1>
+    <MT_259  unit="s/cm"  ardraParameter="invSpgrp">
+1.92245966667e-10, 3.78157833333e-10, 1.8565e-08, 9.11415366667e-07, 4.150518e-05    </MT_259>
+    <MT_1099>
+0.0180373862627, 0.98180069647, 0.000161850692971, 6.65534455184e-08, 2.05781090291e-11    </MT_1099>
+    <MT_2519  unit="1/cm"  ardraParameter="p">
+      <moment_0  ardraParameter="p0">
+        <fromGroup_0>
+          <toGroup_0>9.72952656795154e-03</toGroup_0>
+          <toGroup_1>8.24127488206615e-02</toGroup_1>
+          <toGroup_2>2.00621011577400e-05</toGroup_2>
+        </fromGroup_0>
+        <fromGroup_1>
+          <toGroup_1>1.41288324574948e-01</toGroup_1>
+          <toGroup_2>4.33803443474056e-04</toGroup_2>
+          <toGroup_3>1.61446038458103e-07</toGroup_3>
+        </fromGroup_1>
+        <fromGroup_2>
+          <toGroup_2>1.46537430144199e+00</toGroup_2>
+          <toGroup_3>4.34526084186315e-03</toGroup_3>
+          <toGroup_4>1.56495388666595e-06</toGroup_4>
+        </fromGroup_2>
+        <fromGroup_3>
+          <toGroup_3>1.52895584758608e+00</toGroup_3>
+          <toGroup_4>4.66690600723461e-03</toGroup_4>
+        </fromGroup_3>
+        <fromGroup_4>
+          <toGroup_4>1.20278669777143e+01</toGroup_4>
+        </fromGroup_4>
+      </moment_0>
+      <moment_1  ardraParameter="p1">
+        <fromGroup_0>
+          <toGroup_0>9.42978924880313e-03</toGroup_0>
+          <toGroup_1>4.35699600083084e-02</toGroup_1>
+          <toGroup_2>1.00874675362337e-06</toGroup_2>
+        </fromGroup_0>
+        <fromGroup_1>
+          <toGroup_1>6.31978592512610e-02</toGroup_1>
+          <toGroup_2>1.39448985729097e-05</toGroup_2>
+          <toGroup_3>1.85523349282657e-08</toGroup_3>
+        </fromGroup_1>
+        <fromGroup_2>
+          <toGroup_2>8.99286645360342e-01</toGroup_2>
+          <toGroup_3>7.52646058952212e-04</toGroup_3>
+          <toGroup_4>4.35887080078415e-07</toGroup_4>
+        </fromGroup_2>
+        <fromGroup_3>
+          <toGroup_3>9.38716675010649e-01</toGroup_3>
+          <toGroup_4>3.94652168461029e-04</toGroup_4>
+        </fromGroup_3>
+        <fromGroup_4>
+          <toGroup_4>7.01395137197919e+00</toGroup_4>
+        </fromGroup_4>
+      </moment_1>
+      <moment_2  ardraParameter="p2">
+        <fromGroup_0>
+          <toGroup_0>8.86063448385228e-03</toGroup_0>
+          <toGroup_1>1.70074029816107e-02</toGroup_1>
+        </fromGroup_0>
+        <fromGroup_1>
+          <toGroup_1>2.39507801909074e-02</toGroup_1>
+          <toGroup_3>2.04049563448658e-09</toGroup_3>
+        </fromGroup_1>
+        <fromGroup_2>
+          <toGroup_2>3.37848058440280e-01</toGroup_2>
+        </fromGroup_2>
+        <fromGroup_3>
+          <toGroup_3>3.51370424801508e-01</toGroup_3>
+        </fromGroup_3>
+        <fromGroup_4>
+          <toGroup_4>2.46966112279518e+00</toGroup_4>
+        </fromGroup_4>
+      </moment_2>
+      <moment_3  ardraParameter="p3">
+        <fromGroup_0>
+          <toGroup_0>8.06436745926167e-03</toGroup_0>
+          <toGroup_1>2.89668296547936e-03</toGroup_1>
+        </fromGroup_0>
+        <fromGroup_1>
+          <toGroup_1>4.68691765526781e-03</toGroup_1>
+        </fromGroup_1>
+        <fromGroup_2>
+          <toGroup_2>7.41284796468709e-04</toGroup_2>
+        </fromGroup_2>
+        <fromGroup_3>
+          <toGroup_3>2.62658048351440e-04</toGroup_3>
+        </fromGroup_3>
+        <fromGroup_4>
+          <toGroup_4>9.36859835676921e-05</toGroup_4>
+        </fromGroup_4>
+      </moment_3>
+      <moment_4  ardraParameter="p4">
+        <fromGroup_0>
+          <toGroup_0>7.09823857286299e-03</toGroup_0>
+          <toGroup_1>7.73214584105586e-04</toGroup_1>
+          <toGroup_2>7.27415080201470e-06</toGroup_2>
+        </fromGroup_0>
+        <fromGroup_1>
+          <toGroup_1>9.17132771687262e-04</toGroup_1>
+          <toGroup_2>1.67729343261908e-05</toGroup_2>
+        </fromGroup_1>
+        <fromGroup_2>
+          <toGroup_3>9.36220188165776e-04</toGroup_3>
+          <toGroup_4>1.95738312378977e-07</toGroup_4>
+        </fromGroup_2>
+        <fromGroup_3>
+          <toGroup_4>7.94491760814736e-04</toGroup_4>
+        </fromGroup_3>
+        <fromGroup_4>
+        </fromGroup_4>
+      </moment_4>
+      <moment_5  ardraParameter="p5">
+        <fromGroup_0>
+          <toGroup_0>6.02863246028924e-03</toGroup_0>
+          <toGroup_1>5.89783516978463e-05</toGroup_1>
+          <toGroup_2>1.86215750881974e-06</toGroup_2>
+        </fromGroup_0>
+        <fromGroup_1>
+          <toGroup_1>1.13697284853988e-03</toGroup_1>
+          <toGroup_2>3.55261225448119e-06</toGroup_2>
+        </fromGroup_1>
+        <fromGroup_2>
+          <toGroup_3>5.90654396599946e-04</toGroup_3>
+          <toGroup_4>1.91734218980332e-07</toGroup_4>
+        </fromGroup_2>
+        <fromGroup_3>
+          <toGroup_4>2.34710729588631e-04</toGroup_4>
+        </fromGroup_3>
+        <fromGroup_4>
+        </fromGroup_4>
+      </moment_5>
+      <moment_6  ardraParameter="p6">
+        <fromGroup_0>
+          <toGroup_0>4.92462168478996e-03</toGroup_0>
+        </fromGroup_0>
+        <fromGroup_1>
+          <toGroup_1>1.45861562086610e-03</toGroup_1>
+          <toGroup_3>5.10970526261868e-11</toGroup_3>
+        </fromGroup_1>
+        <fromGroup_2>
+          <toGroup_2>2.19467551878412e-02</toGroup_2>
+        </fromGroup_2>
+        <fromGroup_3>
+          <toGroup_3>2.26921401843519e-02</toGroup_3>
+        </fromGroup_3>
+        <fromGroup_4>
+          <toGroup_4>1.41075783091835e-01</toGroup_4>
+        </fromGroup_4>
+      </moment_6>
+      <moment_7  ardraParameter="p7">
+        <fromGroup_0>
+          <toGroup_0>3.85158765256637e-03</toGroup_0>
+        </fromGroup_0>
+        <fromGroup_1>
+          <toGroup_1>1.31005104058870e-04</toGroup_1>
+          <toGroup_3>4.81930738721039e-11</toGroup_3>
+        </fromGroup_1>
+        <fromGroup_2>
+          <toGroup_2>5.13507270286194e-04</toGroup_2>
+        </fromGroup_2>
+        <fromGroup_3>
+          <toGroup_3>2.38793857451930e-04</toGroup_3>
+        </fromGroup_3>
+        <fromGroup_4>
+          <toGroup_4>1.43692138264962e-04</toGroup_4>
+        </fromGroup_4>
+      </moment_7>
+    </MT_2519>
+  </H2O>
+</newGridXML>
